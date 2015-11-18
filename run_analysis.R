@@ -31,17 +31,16 @@ names(X_train) <- features[,2]
 names(y_test) <- c("Id","Label")
 names(y_train) <- c("Id","Label")
 
-#Set
+#Set column name for subject
 names(subject_test) <- c("Subject")
 names(subject_train) <- c("Subject")
 
-#Bing subject amd activity
+#Bing subject and activity to one dataframe
 SubjectAndActitvityTest <- cbind(subject_test,Activity = y_test[,2])
 SubjectAndActitvityTrain <- cbind(subject_train,Activity = y_train[,2])
 
 #Bind test and training SubjectAndActitvitys data
 full_SubjectAndActitvity <- rbind(SubjectAndActitvityTest,SubjectAndActitvityTrain)
-
 
 #Bind test and training features data
 full_features <- rbind(X_test,X_train)
@@ -63,5 +62,5 @@ resultData <- dcast(resultMelt,Subject + Activity ~ variable,mean)
 resultData <- arrange(resultData,Subject,Activity)
 
 
-#Write file
+#Write result file
 write.table(resultData,"result.txt",row.names = FALSE)
